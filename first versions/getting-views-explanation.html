@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Explanation on How Social Media Works: by BBanda Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Short Interactive Explanation on How Social Media Works: by Blessing Banda </h1>
+        <p>Enter your name and choose a topic to see how your post scores according to the algorithm and message!</p>
+
+        <form id="quizForm">
+            <label for="name">Enter your name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="topic">Choose a topic to post about:</label><br>
+            <select id="topic" name="topic" required>
+                <option value="cars">Cars</option>
+                <option value="trains">Trains</option>
+                <option value="aeroplanes">Aeroplanes</option>
+                <option value="spaceships">Spaceships</option>
+                <option value="AI">AI</option>
+            </select><br>
+
+            <button type="button" onclick="getResult()">Submit</button>
+        </form>
+
+        <div id="result" style="margin-top: 20px; display: none;">
+            <p id="scoreMessage"></p>
+
+            <label for="share">Share your message to get additional views:</label><br>
+            <select id="share" name="share">
+                <option value="none">None</option>
+                <option value="friends">Through Friends (+100 views)</option>
+                <option value="group">Through Group (+500 views)</option>
+            </select><br>
+
+            <label for="boost">Boost your views with money:</label><br>
+            <select id="boost" name="boost">
+                <option value="0">None</option>
+                <option value="5">$5 (Add 1/4 of total views)</option>
+                <option value="20">$20 (+1000 views)</option>
+                <option value="100">$100 (+10k views)</option>
+                <option value="1000">$1000 (+50k views)</option>
+                <option value="10000">$10,000 (+100k views)</option>
+            </select><br>
+
+            <button onclick="calculateBoost()">Calculate Boost</button>
+        </div>
+
+        <div id="suggestion" style="margin-top: 20px; display: none;">
+            <p id="suggestionMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        let baseViews = 0;
+
+        function getResult() {
+            const name = document.getElementById("name").value;
+            const topic = document.getElementById("topic").value;
+
+            let score = 0;
+            let message = "";
+
+            switch (topic) {
+                case "cars":
+                    score = 1;
+                    message = "You have to ask relevant & innovative questions.";
+                    baseViews = 100;
+                    break;
+                case "trains":
+                    score = 3;
+                    message = "You are almost there, you will get 1k views.";
+                    baseViews = 1000;
+                    break;
+                case "aeroplanes":
+                    score = 5;
+                    message = "You are going to get 3k views.";
+                    baseViews = 3000;
+                    break;
+                case "spaceships":
+                case "AI":
+                    score = 20;
+                    message = "You are outstanding, you are now Famous!";
+                    baseViews = 20000;
+                    break;
+                default:
+                    message = "Invalid topic chosen.";
+            }
+
+            document.getElementById("result").style.display = "block";
+            document.getElementById("scoreMessage").innerText = `${name}, you scored ${score} marks. ${message}`;
+        }
+
+        function calculateBoost() {
+            const name = document.getElementById("name").value;
+            const share = document.getElementById("share").value;
+            const boost = parseInt(document.getElementById("boost").value);
+
+            let additionalViews = 0;
+
+            if (share === "friends") {
+                additionalViews += 100;
+            } else if (share === "group") {
+                additionalViews += 500;
+            }
+
+            if (boost === 5) {
+                additionalViews += Math.floor(baseViews / 4);
+            } else if (boost === 20) {
+                additionalViews += 1000;
+            } else if (boost === 100) {
+                additionalViews += 10000;
+            } else if (boost === 1000) {
+                additionalViews += 50000;
+            } else if (boost === 10000) {
+                additionalViews += 100000;
+            }
+
+            const totalViews = baseViews + additionalViews;
+
+            document.getElementById("suggestion").style.display = "block";
+            document.getElementById("suggestionMessage").innerText = `Dear ${name}, you now have a total of ${totalViews} views. You got this boost because you invested money and/or shared your message.`;
+        }
+    </script>
+</body>
+</html>

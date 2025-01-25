@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Topic Quiz</h1>
+        <p>Enter your name and choose a topic to see your score and message!</p>
+
+        <form id="quizForm">
+            <label for="name">Enter your name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="topic">Choose a topic:</label><br>
+            <select id="topic" name="topic" required>
+                <option value="cars">Cars</option>
+                <option value="trains">Trains</option>
+                <option value="aeroplanes">Aeroplanes</option>
+                <option value="spaceships">Spaceships</option>
+                <option value="AI">AI</option>
+            </select><br>
+
+            <button type="button" onclick="getResult()">Submit</button>
+        </form>
+
+        <div id="result" style="margin-top: 20px; display: none;">
+            <p id="scoreMessage"></p>
+            <button onclick="getSuggestion()">Get Suggestion</button>
+        </div>
+
+        <div id="suggestion" style="margin-top: 20px; display: none;">
+            <p id="suggestionMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        function getResult() {
+            const name = document.getElementById("name").value;
+            const topic = document.getElementById("topic").value;
+
+            let score = 0;
+            let message = "";
+
+            switch (topic) {
+                case "cars":
+                    score = 1;
+                    message = "You have to ask relevant & innovative questions.";
+                    break;
+                case "trains":
+                    score = 3;
+                    message = "You are almost there, you will get 1k views.";
+                    break;
+                case "aeroplanes":
+                    score = 5;
+                    message = "You are going to get 3k views.";
+                    break;
+                case "spaceships":
+                case "AI":
+                    score = 20;
+                    message = "You are outstanding, you are now Famous!";
+                    break;
+                default:
+                    message = "Invalid topic chosen.";
+            }
+
+            document.getElementById("result").style.display = "block";
+            document.getElementById("scoreMessage").innerText = `${name}, you scored ${score} marks. ${message}`;
+        }
+
+        function getSuggestion() {
+            const name = document.getElementById("name").value;
+            const suggestionTopic = "spaceships or AI";
+            const views = "Fame and maximum views";
+
+            document.getElementById("suggestion").style.display = "block";
+            document.getElementById("suggestionMessage").innerText = `Dear ${name}, you need to ask about ${suggestionTopic} to get ${views}.`;
+        }
+    </script>
+</body>
+</html>
